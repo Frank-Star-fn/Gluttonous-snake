@@ -16,3 +16,10 @@ Gluttonous snake by html
 5. 游戏规则：贪吃蛇移动到食物方块附近的时候，视为吃到食物。这时贪吃蛇的长度增加一格，游戏分数增加，并立刻在在分数栏中更新，并刷新并重新显示食物的位置；
 
 6. 定义游戏的结束条件：贪吃蛇碰到边界时，游戏结束。
+
+## 截屏
+
+游戏界面：
+<p align="center">
+  <img src="https://github.com/Frank-Star-fn/Gluttonous-snake/blob/main/%E6%88%AA%E5%B1%8F/%E8%B4%AA%E5%90%83%E8%9B%87v2.3%2C%E6%B8%B8%E6%88%8F%E7%BB%93%E6%9D%9F%E7%94%BB%E9%9D%A22.png" alt="Screenshot"/>
+</p>
