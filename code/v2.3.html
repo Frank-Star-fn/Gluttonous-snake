@@ -1,0 +1,134 @@
+<html>
+<head>
+    <title>贪吃蛇小游戏</title>
+    <style>
+        #gameCanvas {
+            border: 1px solid #000000;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas id="gameCanvas" width="400" height="400"></canvas>
+    <button onclick="startGame()">开始游戏</button>
+    <div>当前分数：<span id="score">0</span></div>
+    <script>
+        // 定义开始游戏函数
+        function startGame() {
+            // 初始化游戏参数
+            direction = "right";
+            snakeX = canvas.width / 2;
+            snakeY = canvas.height / 2;
+            foodX = Math.floor(Math.random() * (canvas.width - 10));
+            foodY = Math.floor(Math.random() * (canvas.height - 10));
+            foodType = Math.floor(Math.random() * 3);
+            speed = 100;
+            snakeLength = 0;
+            score = 0;
+            isEaten = false; // 新增变量，用于标记食物是否被吃掉
+
+            // 开始游戏循环
+            setInterval(gameLoop, speed);
+        }
+
+        // 定义游戏循环函数
+        function gameLoop() {
+            // 清除画布
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // 绘制贪吃蛇
+            ctx.fillStyle = "#000000";
+            ctx.fillRect(snakeX, snakeY, 10, 10);
+
+            // 根据贪吃蛇的移动方向，更新贪吃蛇的位置
+            if (direction == "right") {
+                snakeX += 10;
+            } else if (direction == "left") {
+                snakeX -= 10;
+            } else if (direction == "up") {
+                snakeY -= 10;
+            } else if (direction == "down") {
+                snakeY += 10;
+            }
+
+            // 绘制食物
+            ctx.fillStyle = "#FF0000"; // 红色
+            ctx.fillRect(foodX, foodY, 10, 10); // 10x10
+
+            // 检测游戏规则
+            gameRules();
+
+            // 检测游戏结束条件
+            gameOver();
+        }
+
+        // 创建游戏画布
+        var canvas = document.getElementById("gameCanvas");
+        var ctx = canvas.getContext("2d");
+
+        // 定义贪吃蛇的移动方向
+        var direction;
+        // 定义贪吃蛇的初始位置
+        var snakeX = Math.floor(canvas.width / 2);
+        var snakeY = Math.floor(canvas.height / 2);
+
+        // 定义食物的位置
+        var foodX, foodY;
+        // 定义食物的种类
+        var foodType;
+        // 定义贪吃蛇的移动速度
+        var speed;
+        // 定义贪吃蛇的长度
+        var snakeLength = 0;
+        // 定义游戏分数
+        var score;
+        // 定义食物是否被吃掉
+        var isEaten = false;
+
+        // 定义游戏的规则
+        var dis = 10.0;
+        function gameRules() {
+            // 贪吃蛇吃到食物后，蛇的长度增加，游戏分数增加
+            if (Math.abs(snakeX - foodX) <= dis && Math.abs(snakeY - foodY) <= dis && !isEaten) {
+                snakeLength++;
+                score++;
+                isEaten = true; // 标记食物已被吃掉
+                // 更新食物的位置
+                foodX = Math.floor(Math.random() * (canvas.width - 10)) + 5;
+                foodY = Math.floor(Math.random() * (canvas.height - 10)) + 5;
+                document.getElementById("score").innerHTML = score; // 更新分数栏中的分数
+            } else { // 不在食物区域内
+                isEaten = false; // 刷新食物状态
+            }
+        }
+
+        // 定义游戏的结束条件
+        function gameOver() {
+        //    console.log(score)
+            // 贪吃蛇碰到边界，游戏结束
+            if (snakeX + 10 < 0 || snakeX > canvas.width || snakeY + 10 < 0 || snakeY > canvas.height) {
+                alert("Game Over! Your score is " + score);
+            }
+        }
+
+        // 监听键盘按键
+        document.onkeydown = function (e) {
+            switch (e.keyCode) {
+                case 87:
+                    direction = "up";
+                    break;
+                case 83:
+                    direction = "down";
+                    break;
+                case 65:
+                    direction = "left";
+                    break;
+                case 68:
+                    direction = "right";
+                    break;
+            }
+        }
+    </script>
+
+</body>
+</html>
